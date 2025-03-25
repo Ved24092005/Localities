@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localities</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        section {
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .shop-item, .order-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .shop-item button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .order-item {
+            border: 1px solid green;
+        }
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Localities</h1>
+        <nav>
+            <ul>
+                <li><a href="shops.html">Shops</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="shops">
+        <h2>Available Shops</h2>
+        <input type="text" id="search-bar" placeholder="Search shops...">
+        <div id="shop-list"></div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Local Shop Delivery. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const shopList = document.getElementById("shop-list");
+            const searchBar = document.getElementById("search-bar");
+
+            const shops = [
+                { id: 1, name: "Fresh Mart", products: ["Milk", "Bread", "Eggs"] },
+                { id: 2, name: "Daily Needs Store", products: ["Rice", "Wheat", "Sugar"] },
+                { id: 3, name: "Organic Hub", products: ["Vegetables", "Fruits", "Honey"] }
+            ];
+
+            function displayShops(filter = "") {
+                shopList.innerHTML = "";
+                shops.filter(shop => shop.name.toLowerCase().includes(filter.toLowerCase()))
+                    .forEach(shop => {
+                        const shopDiv = document.createElement("div");
+                        shopDiv.classList.add("shop-item");
+                        shopDiv.innerHTML = `<h3>${shop.name}</h3><p>Products: ${shop.products.join(", ")}</p><button onclick="window.location.href='order.html?shop=${shop.name}'">Order Now</button>`;
+                        shopList.appendChild(shopDiv);
+                    });
+            }
+
+            searchBar.addEventListener("input", function() {
+                displayShops(this.value);
+            });
+
+            displayShops();
+        });
+    </script>
+</body>
+</html>
